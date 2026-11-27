@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alimente o Bichinho - Contador de Felicidade</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f8ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 350px;
+      width: 100%;
+    }
+
+    .pet {
+      font-size: 80px;
+      margin: 10px 0;
+      transition: transform 0.2s;
+    }
+
+    .score-board {
+      font-size: 22px;
+      font-weight: bold;
+      color: #333;
+      margin: 15px 0;
+    }
+
+    .message {
+      font-size: 18px;
+      font-weight: bold;
+      color: #2e7d32;
+      min-height: 27px;
+      margin-bottom: 20px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    button {
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s, opacity 0.2s;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    #btn-lanche {
+      background-color: #ff9800;
+      color: white;
+    }
+
+    #btn-lanche:hover:not(:disabled) {
+      background-color: #e68900;
+    }
+
+    #btn-brincar {
+      background-color: #2196f3;
+      color: white;
+    }
+
+    #btn-brincar:hover:not(:disabled) {
+      background-color: #1976d2;
+    }
+
+    #btn-recomecar {
+      background-color: #e0e0e0;
+      color: #333;
+      margin-top: 10px;
+    }
+
+    #btn-recomecar:hover {
+      background-color: #bdbdbd;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Cuide do Bichinho</h1>
+    <div class="pet" id="pet-emoji">🐶</div>
+    
+    <div class="score-board">
+      Felicidade: <span id="pontuacao">0</span> pontos
+    </div>
+
+    <div class="message" id="mensagem"></div>
+
+    <div class="buttons">
+      <button id="btn-lanche">🍎 Dar um lanche (+1)</button>
+      <button id="btn-brincar">🎾 Brincar (+2)</button>
+      <button id="btn-recomecar">🔄 Recomeçar</button>
+    </div>
+  </div>
+
+  <script>
+    let pontos = 0;
+
+    // Seleção dos elementos da tela
+    const spanPontuacao = document.getElementById('pontuacao');
+    const divMensagem = document.getElementById('mensagem');
+    const divPet = document.getElementById('pet-emoji');
+    const btnLanche = document.getElementById('btn-lanche');
+    const btnBrincar = document.getElementById('btn-brincar');
+    const btnRecomecar = document.getElementById('btn-recomecar');
+
+    // Função para atualizar a tela e verificar a condição de vitória
+    function atualizarJogo() {
+      spanPontuacao.textContent = pontos;
+
+      if (pontos >= 5) {
+        divMensagem.textContent = "🎉 Seu bichinho está feliz!";
+        divPet.textContent = "🐶💖";
+        btnLanche.disabled = true;
+        btnBrincar.disabled = true;
+      }
+    }
+
+    // 1. Botão "Dar um lanche" soma 1 ponto
+    btnLanche.addEventListener('click', () => {
+      pontos += 1;
+      atualizarJogo();
+    });
+
+    // 2. Botão "Brincar" soma 2 pontos
+    btnBrincar.addEventListener('click', () => {
+      pontos += 2;
+      atualizarJogo();
+    });
+
+    // 5. Botão "Recomeçar" reseta o estado do jogo
+    btnRecomecar.addEventListener('click', () => {
+      pontos = 0;
+      spanPontuacao.textContent = pontos;
+      divMensagem.textContent = "";
+      divPet.textContent = "🐶";
+      btnLanche.disabled = false;
+      btnBrincar.disabled = false;
+    });
+  </script>
+
+</body>
+</html>
